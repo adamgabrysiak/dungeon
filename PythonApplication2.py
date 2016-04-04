@@ -257,7 +257,7 @@ def lvlup():
         calcstats()
         pxp = 0
         exp = exp * math.pow(1.1,2)
-        print("Congratulations You leveledup")
+        print("Congratulations You have achieved a new level.")
 
 def addstats():
     global str, agi, vit
