@@ -198,7 +198,7 @@ def fight():
             else:
                 print("You don't have a healing potion.")
     if enhp <= 0:
-        print("\nYou have won. Yay. Your hero gain", enxp, "xp!")
+        print("\nYou have won. Yay. Your hero gains", enxp, "xp!")
         dropitem()
         print("\n")
         pxp = enxp + pxp
@@ -259,7 +259,7 @@ def lvlup():
         calcstats()
         pxp = 0
         exp = exp * math.pow(1.1,2)
-        print("Congratulations You leveledup")
+        print("Congratulations. You have achieved a new level   ")
 
 def addstats():
     global str, agi, vit
@@ -269,7 +269,6 @@ def addstats():
 
 def goblin():
     global enstr, envit, enagi, enhp, ename, enxp
-    os.system("cls")
     ename = "Goblin"
     enstr = 2
     enagi = 2
@@ -277,28 +276,32 @@ def goblin():
     enxp = 2
     calcenstats()
     print("\nYou have met a goblin. He is quite weak")
+    input()
+    os.system("cls")
 
 def hobgoblin():
     global enstr, envit, enagi, enhp, ename, enxp
-    os.system("cls")
     ename = "HobGoblin"
     enstr = 3
     enagi = 3
     envit = 3
     enxp = 3
     calcenstats()
-    print("\nYou have met a hobgoblin. It seems like goblins are making armor now for themselves")
+    print("\nYou have met a hobgoblin.\nA curious creature, undoubtly cousin of the goblin.\nJudging by the armor he donned he is the more accomplished one in the family of goblins.")
+    input()
+    os.system("cls")
 
 def ghoul():
     global enstr, envit, enagi, enhp, ename, enxp
-    os.system("cls")
     ename = "Ghoul"
     enstr = 4
     enagi = 4
     envit = 4
     enxp = 3
     calcenstats()
-    print("\nYou have met a ghoul. He is really ugly")
+    print("\nYou have met a ghoul. You've read about him. He really, really likes dead flesh.\nConsidering that you are somehow still alive you are wondering what does he want from you.")
+    input()
+    os.system("cls")
 
 def troll():
     global enstr, envit, enagi, enhp, ename, enxp
@@ -309,6 +312,8 @@ def troll():
     enxp = 5
     calcenstats()
     print("\nBefore you stands a mighty troll. He is as strong as he is ugly. \nHe grins at you and says 'Fresh meat'.")
+    input()
+    os.system("cls")
 
 def bardlord():
     global enstr, envit, enagi, enhp, ename, enxp
@@ -320,7 +325,9 @@ def bardlord():
     enxp = 8
     calcenstats()
     print("\nWalking through the forest You encountered an ancient creature. It's a Bardlord from Summoner's Rift. He's collecting meeps peacefully, when suddenly ") 
-
+    input()
+    os.system("cls")
+    
 def janusz():
     global enstr, envit, enagi, enhp, ename, enxp
     ename = "Janusz"
@@ -330,6 +337,8 @@ def janusz():
     enxp = 10
     calcenstats()
     print("\nIn the depths of this forsaken dungeon you meet a strange creature. He is scarily tall and his eyes gleam with unbound insanity.\nYou can hear him muttering angrily, over and over the same phrase.\n'WHY ARE THOSE CABLES AREN'T WORKING'")
+    input()
+    os.system("cls")
 
 def dropitem():
     global newitem, ename
