@@ -2,7 +2,6 @@ import random
 import os
 import math
 import location
-import sell
 
 #global
 inv = [] #ekwipunek
@@ -183,8 +182,8 @@ def start():
     elif command == "debug":
         additem()
     elif command == "shop" or command == "p":
-        shop()    
-    
+        shop()
+
 def fight():
     global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp, ename, gold, engold
     os.system("cls")
@@ -227,7 +226,7 @@ def fight():
             else:
                 input()
                 start()
-        
+
 def stats():
     global name, vit, agi, str, hp, pxp, plvl
     os.system("cls")
@@ -276,11 +275,11 @@ def randomenemy():
         ghoul()
     elif 90 < choice <= 100:
         ename = None
-    
+
 
 def lvlup():
     global pxp, str, agi, vit, exp, plvl
-    if pxp >= math.floor(10 * math.pow(exp,2)): 
+    if pxp >= math.floor(10 * math.pow(exp,2)):
         plvl = plvl + 1
         addstats()
         calcstats()
@@ -355,10 +354,10 @@ def bardlord():
     enxp = 8
     engold = 8
     calcenstats()
-    print("\nWalking through the forest You encountered an ancient creature. It's a Bardlord from Summoner's Rift. He's collecting meeps peacefully, when suddenly ") 
+    print("\nWalking through the forest You encountered an ancient creature. It's a Bardlord from Summoner's Rift. He's collecting meeps peacefully, when suddenly ")
     input()
     os.system("cls")
-    
+
 def janusz():
     global enstr, envit, enagi, enhp, ename, enxp, engold
     ename = "Janusz"
@@ -426,12 +425,14 @@ def shop():
     invalid(answer)
     os.system("cls")
     if command == "sell":
-        sell.sellitem()
-    if gold >= 20:
+        sellitem()
+    elif command == "exit":
+        start()
+    elif gold >= 20:
         if command == "a":
             newitem = "axe"
         elif command == "s":
-            newitem = "steel plate armor" 
+            newitem = "steel plate armor"
         elif command == "b":
             newitem = "rapid boots"
         elif command == "exit" or command == "e":
@@ -444,13 +445,26 @@ def shop():
         print("Item has been added")
         gold -= 20
         newitem = None
-    else:
+    elif gold < 20:
         print("You don't have enough gold You prick! Get out of here!")
         input()
         start()
 
+
+def sellitem():
+    global gold, inv, command, answer
+    command = input("What item would you like to sell?: ")
+    answer = inv
+    invalid(answer)
+    inv.remove(command)
+    gold += 10
+    print(command, "has been sold")
+    input()
+    command = None
+    start()
+
 os.system("cls")
-print("\n\n\n\n\\t\tWelcome to the simple text game by Adam Gabrysiak and Mateusz Zagorski.")
+print("\n\n\t\tWelcome to the simple text game by Adam Gabrysiak and Mateusz Zagorski.")
 input()
 os.system("cls")
 menu()
