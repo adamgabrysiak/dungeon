@@ -38,8 +38,7 @@ gold = 0 #gold bohatera
 def menu():
     global command, answer, inv, name
     os.system("cls")
-    print("Welcome to the simple text game by Adam Gabrysiak and Mateusz Zagorski."
-          "\n\n\t\t**THE MAIN MENU**"
+    print("\n\n\t\t**THE MAIN MENU**"
           "\n\n1. Create a new character and start a new game. (Start)"
           "\n2. Continue"
           "\n3. Exit")
@@ -413,24 +412,27 @@ def ranchance():
 def shop():
     global gold, price, newitem, inv, answer, command
     os.system("cls")
-    print("You're entering a eq store.\nThe owner of the shop wants to greet You: 'Hello wanderer! Come, come!\nWhat can I do for You?'"
+    print("You're entering a long forgotten store.\nThe owner of the shop greets you vigorously: \n'Hello wanderer! Come, come!\nWhat can I do for You?'"
     "\n\nYou can buy an Axe ( +10 strength ) for", price, "gold.\nTo buy an axe type a."
     "\n\nYou can buy a steel plate armor ( +10 vitality ) for", price, "gold.\nTo buy steel plate armor type s."
     "\n\nYou can buy a new pair of rapid boots ( +10 agility ) for", price, "gold.\nTo buy rapid boots type b."
+    "\n\nYou can also sell your items. To do so type 'sell'."
     "\n\nIf you wish to exit the shop type 'exit'"
     "\n\nYou have", gold, "gold")
     command = input("\n: ")
     command = command.lower()
-    answer = ["a", "s", "b", "exit", "e"]
+    answer = ["a", "s", "b", "exit", "e", "sell"]
     invalid(answer)
     os.system("cls")
+    if command == "sell"
+        sell.sellitem()
     if gold >= 20:
         if command == "a":
             newitem = "axe"
         elif command == "s":
-            newitem = "steelplatearmor" 
+            newitem = "steel plate armor" 
         elif command == "b":
-            newitem = "rapidboots"
+            newitem = "rapid boots"
         elif command == "exit" or command == "e":
             start()
         if newitem in inv:
@@ -441,18 +443,12 @@ def shop():
         print("Item has been added")
         gold -= 20
         newitem = None
-        print("Would You like to exit the shop, or buy some more items?\n\nWrite 'yes' if You want to buy more.\nWrite 'no' if You want to enter main menu")
-        command = input(": ")
-        command = command.lower()
-        answer = ["yes", "y", "no", "n"]
-        invalid(answer)
-        if command == "yes" or command == "y":
-            shop()
-        elif command == "no" or command == "n":
-            start()
     else:
         print("You don't have enough gold You prick! Get out of here!")
-        command = input(": ")
+        input()
         start()
 
+print("\t\tWelcome to the simple text game by Adam Gabrysiak and Mateusz Zagorski.")
+input()
+os.system("cls")
 menu()
