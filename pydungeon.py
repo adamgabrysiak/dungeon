@@ -2,6 +2,7 @@ import random
 import os
 import time
 import math
+import location
 
 inv = [] #ekwipunek
 command = None
@@ -170,6 +171,7 @@ def start():
 def fight():
     global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp
     os.system("cls")
+    ranloc()
     randomenemy()
     while enhp > 0 and hp > 0:
         ranchance()
