@@ -120,7 +120,7 @@ def additem():
         if command == "yes" or command == "y":
             if newitem in inv:
                 print("You can't take two items of the same kind")
-                time.sleep(2)
+                command = input(": ")
             else:
                 inv.append(newitem)
                 print("Item has been added")
