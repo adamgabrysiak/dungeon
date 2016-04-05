@@ -171,7 +171,7 @@ def start():
 def fight():
     global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp
     os.system("cls")
-    ranloc()
+    location.ranloc()
     randomenemy()
     while enhp > 0 and hp > 0:
         ranchance()
