@@ -12,6 +12,5 @@ def ranloc():
              1 : "that resembles a torture chamber."}
   exitdesc = {0 : "north",
             1 : "south"}
-  print("You are in a", introdesc[intro], middesc[mid], "You can exit this location by going", exitdesc[end])
+  print("\nYou are in a", introdesc[intro], middesc[mid], "\nYou can exit this location by going", exitdesc[end])
 
-  input("Press enter...")
