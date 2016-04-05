@@ -1,6 +1,5 @@
 import random
 import os
-import time
 import math
 import location
 
@@ -436,7 +435,7 @@ def shop():
             start()
         if newitem in inv:
             print("You can't buy two items of the same kind!")
-            time.sleep(2)
+            command = input(": ")
             shop()
         inv.append(newitem)
         print("Item has been added")
@@ -453,7 +452,7 @@ def shop():
             start()
     else:
         print("You don't have enough gold You prick! Get out of here!")
-        time.sleep(2)
+        command = input(": ")
         start()
 
 menu()
