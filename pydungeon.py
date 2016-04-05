@@ -169,45 +169,46 @@ def start():
         additem()    
     
 def fight():
-    global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp
+    global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp, ename
     os.system("cls")
     location.ranloc()
     randomenemy()
-    while enhp > 0 and hp > 0:
-        ranchance()
-        print("\n", ename, " attacks! He hits", name, "for", fenatt, "points.")
-        hp = hp - fenatt
-        if hp <= 0:
-            print("\nYou have lost. You are a disgrace to the mankind")
-            input()
-            clear()
-            menu()
-        print("\n", name, "has", hp, "health points and", ename, "has", enhp, "health points.")
-        command = input("\nWould you like to fight or run like a little bitch?" "\nIf you have a healing potion you can heal your wounds.: " )
-        answer = ["run", "r", "fight", "f", "heal", "h"]
-        os.system("cls")
-        invalid(answer)
-        if command == "run" or command == "r":
-            start()
-        elif command == "fight" or command == "f":
-            print("\nWith all your might you hit", ename, "for", fatt, "points.\nHe is confused as to why did you do that.")
-            enhp = enhp - fatt
-        elif command == "heal" or command == "h":
-            if "healing potion" in inv:
-                calcstats()
+    if ename != None:
+        while enhp > 0 and hp > 0:
+            ranchance()
+            print("\n", ename, " attacks! He hits", name, "for", fenatt, "points.")
+            hp = hp - fenatt
+            if hp <= 0:
+                print("\nYou have lost. You are a disgrace to the mankind")
+                input()
+                clear()
+                menu()
+            print("\n", name, "has", hp, "health points and", ename, "has", enhp, "health points.")
+            command = input("\nWould you like to fight or run like a little bitch?" "\nIf you have a healing potion you can heal your wounds.: " )
+            answer = ["run", "r", "fight", "f", "heal", "h"]
+            os.system("cls")
+            invalid(answer)
+            if command == "run" or command == "r":
+                start()
+            elif command == "fight" or command == "f":
+                print("\nWith all your might you hit", ename, "for", fatt, "points.\nHe is confused as to why did you do that.")
+                enhp = enhp - fatt
+            elif command == "heal" or command == "h":
+                if "healing potion" in inv:
+                    calcstats()
+                else:
+                    print("You don't have a healing potion.")
+        if enhp <= 0:
+            print("\nYou have won. Yay. Your hero gains", enxp, "xp!")
+            dropitem()
+            print("\n")
+            pxp = enxp + pxp
+            lvlup()
+            if newitem != None:
+                additem()
             else:
-                print("You don't have a healing potion.")
-    if enhp <= 0:
-        print("\nYou have won. Yay. Your hero gains", enxp, "xp!")
-        dropitem()
-        print("\n")
-        pxp = enxp + pxp
-        lvlup()
-        if newitem != None:
-            additem()
-        else:
-            input()
-            start()
+                input()
+                start()
         
 def stats():
     global name, vit, agi, str, hp, pxp, plvl
@@ -251,6 +252,12 @@ def randomenemy():
         janusz()
     elif 30 < choice <= 40:
         bardlord()
+    elif 40 < choice <= 50:
+        hobgoblin()
+    elif 60 < choice <= 90:
+        ghoul()
+    elif 90 < choice <= 100:
+        ename = None
     
 
 def lvlup():
