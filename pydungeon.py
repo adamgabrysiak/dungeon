@@ -349,7 +349,6 @@ def troll():
 
 def bardlord():
     global enstr, envit, enagi, enhp, ename, enxp, engold
-    os.system("cls")
     ename = "Bardlord"
     enstr = 8
     enagi = 5
