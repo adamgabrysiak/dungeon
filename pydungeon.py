@@ -239,17 +239,19 @@ def clear():
     newitem = None
 
 def randomenemy():
-    choice = random.randrange(5)
+    global ename
+    choice = random.randrange(100)
     if choice == 0:
-        goblin()
-    elif choice == 1:
+        ename = None
+    elif 0 < choice <= 10:
         ghoul()
-    elif choice == 2:
+    elif 10 < choice <= 20:
         troll()
-    elif choice == 3:
+    elif 20 < choice <= 30:
         janusz()
-    elif choice == 4:
+    elif 30 < choice <= 40:
         bardlord()
+    
 
 def lvlup():
     global pxp, str, agi, vit, exp, plvl
