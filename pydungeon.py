@@ -4,28 +4,37 @@ import time
 import math
 import location
 
+#global
 inv = [] #ekwipunek
 command = None
-str = 5 #siła
-agi = 5 #zręczność
-vit = 5 #żywotność
-hp = None #punkty życia
-att = 0 #siła ataku
-name = None #imię postaci
 answer = None
+newitem = None
+price = 20 #cena itemow w sklepie
+
+#enemies
 enstr = 0 #siła wroga
 enagi = 0 #zręczność wroga
 envit = 0 #żywotność wroga
 enhp = 0 #punkty życia wrogatat
 enatt = 0 #siła ataku wroga
 ename = None #nazwa wroga
-newitem = None
 fenatt = 0 #finalny atak wroga
+enxp = 0 #xp za przeciwnika
+engold = 0 #gold za zabicie stwora
+
+#player
+name = None #imię postaci
+str = 5 #siła
+agi = 5 #zręczność
+vit = 5 #żywotność
+hp = None #punkty życia
+att = 0 #siła ataku
 fatt = 0 #finalny atak postaci
 pxp = 0 #xp bohatera
-enxp = 0 #xp za przeciwnika
 exp = 1 #xp potrzebne do nastepnego lvlu
 plvl = 1 #lvl bohatera
+gold = 0 #gold bohatera
+
 
 def menu():
     global command, answer, inv, name
@@ -75,6 +84,12 @@ def eq():
         str += 5
         agi += 5
         vit += 5
+    elif "steelplatearmor" in inv:
+        vit += 10
+    elif "axe" in inv:
+        str += 10
+    elif "rapidboots" in inv:
+        agi += 10
     calcstats()
     print("\nYou have ", len(inv), "items in your inventory.\nYour inventory consists of: ")
     if len(inv) != 0:
@@ -152,10 +167,11 @@ def start():
           "\n\nIf you want to see", name, "'s inventory then write 'inventory'"
           "\nIf you want to go back to the menu write 'menu'"
           "\nIf you want to see", name, "'s statistics then write 'stats'"
-          "\nIf you want to explore write 'explore'")
+          "\nIf you want to explore write 'explore'"
+          "\nIf you want to visit a shop, write 'shop' or 'p'")
     command = input("\n: ")
     command = command.lower()
-    answer = ["explore", "e", "inventory", "i", "menu", "m", "stats", "s", "debug"]
+    answer = ["explore", "e", "inventory", "i", "menu", "m", "stats", "s", "debug", "shop", "p"]
     invalid(answer)
     if command == "inventory" or command == "i":
         eq()
@@ -166,10 +182,12 @@ def start():
     elif command == "stats" or command == "s":
         stats()
     elif command == "debug":
-        additem()    
+        additem()
+    elif command == "shop" or command == "p":
+        shop()    
     
 def fight():
-    global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp, ename
+    global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp, ename, gold, engold
     os.system("cls")
     location.ranloc()
     randomenemy()
@@ -199,10 +217,11 @@ def fight():
                 else:
                     print("You don't have a healing potion.")
         if enhp <= 0:
-            print("\nYou have won. Yay. Your hero gains", enxp, "xp!")
+            print("\nYou have won. Yay. Your hero gains", enxp, "xp! And", engold, "gold!")
             dropitem()
             print("\n")
             pxp = enxp + pxp
+            gold = gold + engold
             lvlup()
             if newitem != None:
                 additem()
@@ -213,7 +232,7 @@ def fight():
 def stats():
     global name, vit, agi, str, hp, pxp, plvl
     os.system("cls")
-    print("\n\nYour character's name is", name, ". \nHe has:\n", str, "points of strenght,\n", agi, "points of agility \n", vit, "points of vitality (which gives the character", hp, "health points.)", "\n Your character has:", pxp, "xp points. \n Your character level is:", plvl, "\n You need:", math.floor(10 * math.pow(exp,2)) - pxp, "xp points to lvl up")
+    print("\n\nYour character's name is", name, ". \nHe has:\n", str, "points of strenght,\n", agi, "points of agility \n", vit, "points of vitality (which gives the character", hp, "health points.)", "\n Your character has:", pxp, "xp points.\n Your character has:", gold, "gold.\nYour character level is:", plvl, "\nYou need:", math.floor(10 * math.pow(exp,2)) - pxp, "xp points to lvl up")
     input()
     start()
 
@@ -277,73 +296,79 @@ def addstats():
     vit = vit + 1
 
 def goblin():
-    global enstr, envit, enagi, enhp, ename, enxp
+    global enstr, envit, enagi, enhp, ename, enxp, engold
     ename = "Goblin"
     enstr = 2
     enagi = 2
     envit = 2
     enxp = 2
+    engold = 2
     calcenstats()
     print("\nYou have met a goblin. He is quite weak")
     input()
     os.system("cls")
 
 def hobgoblin():
-    global enstr, envit, enagi, enhp, ename, enxp
+    global enstr, envit, enagi, enhp, ename, enxp, engold
     ename = "HobGoblin"
     enstr = 3
     enagi = 3
     envit = 3
     enxp = 3
+    engold = 3
     calcenstats()
     print("\nYou have met a hobgoblin.\nA curious creature, undoubtly cousin of the goblin.\nJudging by the armor he donned he is the more accomplished one in the family of goblins.")
     input()
     os.system("cls")
 
 def ghoul():
-    global enstr, envit, enagi, enhp, ename, enxp
+    global enstr, envit, enagi, enhp, ename, enxp, engold
     ename = "Ghoul"
     enstr = 4
     enagi = 4
     envit = 4
     enxp = 3
+    engold = 4
     calcenstats()
     print("\nYou have met a ghoul. You've read about him. He really, really likes dead flesh.\nConsidering that you are somehow still alive you are wondering what does he want from you.")
     input()
     os.system("cls")
 
 def troll():
-    global enstr, envit, enagi, enhp, ename, enxp
+    global enstr, envit, enagi, enhp, ename, enxp, engold
     ename = "Troll"
     enstr = 5
     enagi = 1
     envit = 10
     enxp = 5
+    engold = 5
     calcenstats()
     print("\nBefore you stands a mighty troll. He is as strong as he is ugly. \nHe grins at you and says 'Fresh meat'.")
     input()
     os.system("cls")
 
 def bardlord():
-    global enstr, envit, enagi, enhp, ename, enxp
+    global enstr, envit, enagi, enhp, ename, enxp, engold
     os.system("cls")
     ename = "Bardlord"
     enstr = 8
     enagi = 5
     envit = 5
     enxp = 8
+    engold = 8
     calcenstats()
     print("\nWalking through the forest You encountered an ancient creature. It's a Bardlord from Summoner's Rift. He's collecting meeps peacefully, when suddenly ") 
     input()
     os.system("cls")
     
 def janusz():
-    global enstr, envit, enagi, enhp, ename, enxp
+    global enstr, envit, enagi, enhp, ename, enxp, engold
     ename = "Janusz"
     enstr = 1
     enagi = 30
     envit = 5
     enxp = 10
+    engold = 10
     calcenstats()
     print("\nIn the depths of this forsaken dungeon you meet a strange creature. He is scarily tall and his eyes gleam with unbound insanity.\nYou can hear him muttering angrily, over and over the same phrase.\n'WHY ARE THOSE CABLES AREN'T WORKING'")
     input()
@@ -386,5 +411,50 @@ def ranchance():
         attack = 1.5
     fatt = att * attack
     fenatt = enatt * attack
+
+def shop():
+    global gold, price, newitem, inv, answer, command
+    os.system("cls")
+    print("You're entering a eq store.\nThe owner of the shop wants to greet You: 'Hello wanderer! Come, come!\nWhat can I do for You?'"
+    "\n\nYou can buy an Axe ( +10 strength ) for", price, "gold.\nTo buy an axe type a."
+    "\n\nYou can buy a steel plate armor ( +10 vitality ) for", price, "gold.\nTo buy steel plate armor type s."
+    "\n\nYou can buy a new pair of rapid boots ( +10 agility ) for", price, "gold.\nTo buy rapid boots type b."
+    "\n\nIf you wish to exit the shop type 'exit'"
+    "\n\nYou have", gold, "gold")
+    command = input("\n: ")
+    command = command.lower()
+    answer = ["a", "s", "b", "exit", "e"]
+    invalid(answer)
+    os.system("cls")
+    if gold >= 20:
+        if command == "a":
+            newitem = "axe"
+        elif command == "s":
+            newitem = "steelplatearmor" 
+        elif command == "b":
+            newitem = "rapidboots"
+        elif command == "exit" or command == "e":
+            start()
+        if newitem in inv:
+            print("You can't buy two items of the same kind!")
+            time.sleep(2)
+            shop()
+        inv.append(newitem)
+        print("Item has been added")
+        gold -= 20
+        newitem = None
+        print("Would You like to exit the shop, or buy some more items?\n\nWrite 'yes' if You want to buy more.\nWrite 'no' if You want to enter main menu")
+        command = input(": ")
+        command = command.lower()
+        answer = ["yes", "y", "no", "n"]
+        invalid(answer)
+        if command == "yes" or command == "y":
+            shop()
+        elif command == "no" or command == "n":
+            start()
+    else:
+        print("You don't have enough gold You prick! Get out of here!")
+        time.sleep(2)
+        start()
 
 menu()
