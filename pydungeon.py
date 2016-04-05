@@ -425,7 +425,7 @@ def shop():
     answer = ["a", "s", "b", "exit", "e", "sell"]
     invalid(answer)
     os.system("cls")
-    if command == "sell"
+    if command == "sell":
         sell.sellitem()
     if gold >= 20:
         if command == "a":
@@ -449,7 +449,8 @@ def shop():
         input()
         start()
 
-print("\t\tWelcome to the simple text game by Adam Gabrysiak and Mateusz Zagorski.")
+os.system("cls")
+print("\n\n\n\n\\t\tWelcome to the simple text game by Adam Gabrysiak and Mateusz Zagorski.")
 input()
 os.system("cls")
 menu()
