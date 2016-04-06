@@ -449,7 +449,7 @@ def shop():
     if command == "sell":
         if not inv:
             print("You don't have any items for sale.")
-            input()
+            input(": ")
             shop()
         else:
             sellitem()
@@ -462,9 +462,7 @@ def shop():
             newitem = "steel plate armor"
         elif command == "b":
             newitem = "rapid boots"
-        elif command == "exit" or command == "e":
-            start()
-        if newitem in inv:
+        elif newitem in inv:
             print("You can't buy two items of the same kind!")
             command = input(": ")
             shop()
