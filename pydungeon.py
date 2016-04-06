@@ -447,8 +447,13 @@ def shop():
     invalid(answer)
     os.system("cls")
     if command == "sell":
-        sellitem()
-    elif command == "exit":
+        if not inv:
+            print("You don't have any items for sale.")
+            input()
+            shop()
+        else:
+            sellitem()
+    elif command == "exit" or command =="e":
         start()
     elif gold >= 20:
         if command == "a":
