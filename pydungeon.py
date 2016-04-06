@@ -8,6 +8,7 @@ inv = [] #ekwipunek
 command = None
 answer = None
 newitem = None
+roomorder = [] #kolejność wyświetlania pokoi
 price = 20 #cena itemow w sklepie
 
 #enemies
@@ -33,6 +34,14 @@ pxp = 0 #xp bohatera
 exp = 1 #xp potrzebne do nastepnego lvlu
 plvl = 1 #lvl bohatera
 gold = 0 #gold bohatera
+
+#generowanie kolejności pokoi
+i = 1
+while i <= 10:
+    j = random.randrange(10)
+    if j not in roomorder:
+        roomorder.append(j)
+        i += 1
 
 
 def menu():
@@ -185,9 +194,12 @@ def start():
         shop()
 
 def fight():
-    global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp, ename, gold, engold
+    global hp, enhp, enatt, command, answer, name, att, fenatt, fatt, pxp, ename, gold, engold, plvl
     os.system("cls")
-    location.ranloc()
+    if plvl > 2:
+        location.defloc(roomorder)
+    else:
+        location.ranloc()
     randomenemy()
     if ename != None:
         while enhp > 0 and hp > 0:
@@ -215,7 +227,7 @@ def fight():
                 else:
                     print("You don't have a healing potion.")
         if enhp <= 0:
-            print("\nYou have won. Yay. Your hero gains", enxp, "xp! And", engold, "gold!")
+            print("\nYou have killed", ename, "and won. Yay. Your hero gains", enxp, "xp! And", engold, "gold!")
             dropitem()
             print("\n")
             pxp = enxp + pxp
@@ -226,6 +238,10 @@ def fight():
             else:
                 input()
                 start()
+    else:
+        print("You haven't found anything in the room.")
+        input()
+        start()
 
 def stats():
     global name, vit, agi, str, hp, pxp, plvl
@@ -303,6 +319,7 @@ def goblin():
     engold = 2
     calcenstats()
     print("\nYou have met a goblin. He is quite weak")
+    print("He has", enhp, "health points.")
     input()
     os.system("cls")
 
@@ -316,6 +333,7 @@ def hobgoblin():
     engold = 3
     calcenstats()
     print("\nYou have met a hobgoblin.\nA curious creature, undoubtly cousin of the goblin.\nJudging by the armor he donned he is the more accomplished one in the family of goblins.")
+    print("He has", enhp, "health points.")
     input()
     os.system("cls")
 
@@ -328,7 +346,8 @@ def ghoul():
     enxp = 3
     engold = 4
     calcenstats()
-    print("\nYou have met a ghoul. You've read about him. He really, really likes dead flesh.\nConsidering that you are somehow still alive you are wondering what does he want from you.")
+    print("\nYou have met a ghoul. You've read about him. He really, really likes dead flesh.\nConsidering that you are still alive you are wondering what does he want from you.")
+    print("He has", enhp, "health points.")
     input()
     os.system("cls")
 
@@ -342,6 +361,7 @@ def troll():
     engold = 5
     calcenstats()
     print("\nBefore you stands a mighty troll. He is as strong as he is ugly. \nHe grins at you and says 'Fresh meat'.")
+    print("He has", enhp, "health points.")
     input()
     os.system("cls")
 
@@ -355,6 +375,7 @@ def bardlord():
     engold = 8
     calcenstats()
     print("\nWalking through the forest You encountered an ancient creature. It's a Bardlord from Summoner's Rift. He's collecting meeps peacefully, when suddenly ")
+    print("He has", enhp, "health points.")
     input()
     os.system("cls")
 
@@ -368,6 +389,7 @@ def janusz():
     engold = 10
     calcenstats()
     print("\nIn the depths of this forsaken dungeon you meet a strange creature. He is scarily tall and his eyes gleam with unbound insanity.\nYou can hear him muttering angrily, over and over the same phrase.\n'WHY ARE THOSE CABLES AREN'T WORKING'")
+    print("He has", enhp, "health points.")
     input()
     os.system("cls")
 
