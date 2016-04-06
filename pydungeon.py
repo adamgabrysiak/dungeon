@@ -478,7 +478,10 @@ def shop():
 
 def sellitem():
     global gold, inv, command, answer
-    command = input("What item would you like to sell?: ")
+    print("You have", len(inv), "items that You can sell:\n\n")
+    for item in inv:
+        print(item)
+    command = input("\n\nWhat item would you like to sell?: ")
     answer = inv
     invalid(answer)
     inv.remove(command)
