@@ -1,0 +1,2 @@
+python dungui.py
+pause
