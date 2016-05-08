@@ -11,10 +11,6 @@ class Application(Frame):
 		message = " "
 		self.output_box.grid(row= 1, columnspan = 100)
 		self.display_message(message)
-		self.inventory_button = Button(self, text = "Inventory", command = self.show_inventory) #not ready yet, for test purposes
-		self.inventory_button.grid(row = 0, column = 1, sticky = W)
-		self.statistics_button = Button(self, text = "Statistics", command = self.show_statistics) #not ready yet, for test purposes
-		self.statistics_button.grid(row = 0, column = 2, sticky = W)
 		self.button("Start")
 
 	
@@ -33,13 +29,14 @@ class Application(Frame):
 
 		statistics_window = Toplevel()
 		statistics_window.title("Statistics")
-		message = Message(statistics_window, text = "The statistics will be displayed here")
+		message = Message(statistics_window, text = self.my_hero.name)
 		message.pack()
 
 	def button(self, action): #top left button with multiple purposes defined in the method
 
 		try:
 			self.primary_button.destroy()
+			self.name_entry.destroy()
 		except:
 			pass
 
@@ -47,13 +44,32 @@ class Application(Frame):
 		self.primary_button.grid(row = 0, sticky = W)
 
 		if action == "Start":
-			self.primary_button["command"] = self.main_area_game #callback to creation of the character should go here
+			self.primary_button["command"] = self.start_game #callback to creation of the character should go here
 
 		elif action == "Explore":
 			self.primary_button["command"] = self.explore
 
 		elif action == "Go back":
 			self.primary_button["command"] = self.main_area_game
+
+	def start_game(self):
+		self.character_creation_window = Toplevel()
+		self.character_creation_window.title("Create your character")
+		self.name_entry = Entry(self.character_creation_window)
+		self.name_entry.pack()
+		accept_button = Button(self.character_creation_window, text = "Accept", command = self.get_name)
+		accept_button.pack()
+
+	def get_name(self):
+		name = self.name_entry.get()
+		self.character_creation_window.destroy()
+		self.interlude(name)
+
+	def interlude(self, name):
+		self.my_hero = Hero(name)
+		self.inventory_button = Button(self, text = "Inventory", command = self.show_inventory).grid(row = 0, column = 1, sticky = W)
+		self.statistics_button = Button(self, text = "Statistics", command = self.show_statistics).grid(row = 0, column = 2, sticky = W)
+		self.main_area_game()
 
 	def quit_game(self): #closing application
 		exit()
@@ -67,6 +83,11 @@ class Application(Frame):
 		message = "You explore some shit"
 		self.display_message(message)
 		self.button("Go back")
+
+class Hero(object):
+	def __init__(self, name):
+		self.name = name
+
 
 if __name__ == "__main__":
 	root = Tk()
